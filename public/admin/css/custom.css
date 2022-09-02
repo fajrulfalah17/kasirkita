@@ -1,7 +1,7 @@
 body {
     /* background-color: #bccad8 !important; */
     background-color: #e5e5e5 !important;
-    font-family: 'Quicksand', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 .shadow {
@@ -9,26 +9,26 @@ body {
 }
 
 .border-top-purple {
-    border-top: 5px solid #894b9d !important;
+    border-top: 5px solid #6e5de7 !important;
 }
 
 .btn-primary {
-    background-color: #894b9d !important;
-    border-color: #894b9d !important;
+    background-color: #6e5de7 !important;
+    border-color: #6e5de7 !important;
 }
 
 .btn-primary:hover {
-    background-color: #894b9d !important;
-    border-color: #894b9d !important;
+    background-color: #6e5de7 !important;
+    border-color: #6e5de7 !important;
 }
 
 .btn-primary:focus {
-    background-color: #894b9d !important;
-    border-color: #894b9d !important;
+    background-color: #6e5de7 !important;
+    border-color: #6e5de7 !important;
 }
 
 .text-primary {
-    color: #894b9d !important;
+    color: #6e5de7 !important;
 }
 
 .c-sidebar .c-sidebar-nav-dropdown-toggle:hover,
@@ -50,7 +50,7 @@ body {
 */
 .bg-green {
     /* background-color: #43a047; */
-    background-color: #894b9d;
+    background-color: #6e5de7;
 }
 
 .bg-jumbotron {
@@ -145,7 +145,7 @@ body {
 }
 
 .btn-purple {
-    background-color: #894b9d !important;
+    background-color: #6e5de7 !important;
     color: white !important;
 }
 
