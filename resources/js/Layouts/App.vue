@@ -7,7 +7,7 @@
       }"
       id="sidebar"
     >
-      <div class="c-sidebar-brand d-lg-down-none" style="background: #894b9d">
+      <div class="c-sidebar-brand d-lg-down-none" style="background: #4da9ff">
         <img
           src="/images/cash-machine.png"
           class="bg-light rounded shadow-sm p-1"
