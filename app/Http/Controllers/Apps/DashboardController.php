@@ -55,15 +55,16 @@ class DashboardController extends Controller
         $products_limit_stock = Product::with('category')->where('stock', '<=', 10)->get();
 
         // chart best selling
-        $cart_best_products = DB::table('transaction_details')
+        $chart_best_products = DB::table('transaction_details')
             ->addSelect(DB::raw('products.title as title, SUM(transaction_details.qty) as total'))
+            ->join('products', 'products.id', '=', 'transaction_details.product_id')
             ->groupBy('transaction_details.product_id')
             ->orderBy('total', 'DESC')
             ->limit(5)
             ->get();
 
-        if(count($cart_best_products)) {
-            foreach($cart_best_products as $data) {
+        if(count($chart_best_products)) {
+            foreach($chart_best_products as $data) {
                 $product[] = $data->title;
                 $total[] = (int)$data->total;
             }
@@ -73,14 +74,14 @@ class DashboardController extends Controller
         }
 
         return Inertia::render('Apps/Dashboard/Index', [
-            'sales_date'            => $sales_date,
-            'grand_total'           => $grand_total,
-            'count_sales_today'     => (int) $count_sales_today,
-            'sum_sales_today'       => (int) $sum_sales_today,
-            'sum_profits_today'     => $sum_profits_today,
-            'products_limit_stock'  => $products_limit_stock,
-            'product'               => $product,
-            'total'                 => $total
+            'sales_date'           => $sales_date,
+            'grand_total'          => $grand_total,
+            'count_sales_today'    => (int) $count_sales_today,
+            'sum_sales_today'      => (int) $sum_sales_today,
+            'sum_profits_today'    => (int) $sum_profits_today,
+            'products_limit_stock' => $products_limit_stock,
+            'product'              => $product,
+            'total'                => $total
         ]);
 
     }
