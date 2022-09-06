@@ -43,7 +43,7 @@
                                         </td>
                                         <td class="text-center">
                                             <Link :href="`/apps/roles/${role.id}/edit`" v-if="hasAnyPermission(['roles.edit'])" class="btn btn-success btn-sm me-2"><i class="fa fa-pencil-alt me-1"></i> Edit</Link>
-                                            <button v-if="hasAnyPermission(['roles.delte'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>
+                                            <button @click.prevent="destroy(role.id)" v-if="hasAnyPermission(['roles.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -69,6 +69,7 @@
     import Pagination from '../../../Components/Pagination.vue';
     import { ref } from '@vue/reactivity';
     import { Inertia } from '@inertiajs/inertia';
+import Swal from 'sweetalert2';
 
     export default {
 
@@ -98,9 +99,35 @@
                 })
             }
 
+            const destroy = (id) => {
+                Swal.fire({
+                        title: 'Apakah anda yakin?',
+                        text: 'Kamu tidak bisa mengembalikan ini!.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor : '#4da9ff',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, Hapus!'
+                    })
+                .then((result) => {
+                    if(result.isConfirmed) {
+                        Inertia.delete(`/apps/roles/${id}`)
+
+                        Swal.fire({
+                        title: 'Dihapus!',
+                        text: 'Role sukses dihapus.',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    }
+                })
+            }
+
             return {
                 search,
-                handleSearch
+                handleSearch,
+                destroy
             }
         }
 

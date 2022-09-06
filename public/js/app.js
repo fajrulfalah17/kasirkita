@@ -19977,10 +19977,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Layouts/App.vue */ "./resources/js/Layouts/App.vue");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Components_Pagination_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Components/Pagination.vue */ "./resources/js/Components/Pagination.vue");
-/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 //import layout
  //import Heade and useForm from Inertia
+
 
 
 
@@ -20000,7 +20003,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   setup: function setup() {
     // define search
-    var search = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_4__.ref)( false || new URL(document.location).searchParams.get('q')); // define search method
+    var search = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_5__.ref)( false || new URL(document.location).searchParams.get('q')); // define search method
 
     var handleSearch = function handleSearch() {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.get('/apps/roles', {
@@ -20009,9 +20012,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     };
 
+    var destroy = function destroy(id) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+        title: 'Apakah anda yakin?',
+        text: 'Kamu tidak bisa mengembalikan ini!.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#4da9ff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia["delete"]("/apps/roles/".concat(id));
+          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            title: 'Dihapus!',
+            text: 'Role sukses dihapus.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      });
+    };
+
     return {
       search: search,
-      handleSearch: handleSearch
+      handleSearch: handleSearch,
+      destroy: destroy
     };
   }
 });
@@ -21558,10 +21585,7 @@ var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Edit");
 
-var _hoisted_19 = {
-  key: 1,
-  "class": "btn btn-danger btn-sm"
-};
+var _hoisted_19 = ["onClick"];
 
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fa fa-trash"
@@ -21639,7 +21663,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
     }, 1032
     /* PROPS, DYNAMIC_SLOTS */
-    , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.hasAnyPermission(['roles.delte']) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_19, _hoisted_22)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+    , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.hasAnyPermission(['roles.delete']) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 1,
+      onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+        return $setup.destroy(role.id);
+      }, ["prevent"]),
+      "class": "btn btn-danger btn-sm"
+    }, _hoisted_22, 8
+    /* PROPS */
+    , _hoisted_19)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Pagination, {
