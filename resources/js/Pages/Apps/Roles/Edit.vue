@@ -10,12 +10,12 @@
                     <div class="col-md-12">
                         <div class="card boirder-0 rounded-2 shadow border-top-purple">
                             <div class="card-header">
-                                <span class="font-weight-bold"><i class="fa fa-shield-alt"></i> Tambah Role</span>
+                                <span class="font-weight-bold"><i class="fa fa-shield-alt"></i> Edit Role</span>
                             </div>
                             <div class="card-body">
                                 <form @submit.prevent="submit">
                                     <div class="mb-3">
-                                        <label class="fw-bold">Nama Role</label>
+                                        <label class="fw-bold">Role Name</label>
                                         <input class="form-control" v-model="form.name" :class="{ 'is-invalid': errors.name }" type="text" placeholder="Role Name">
                                         
                                         <div v-if="errors.name" class="alert alert-danger">
@@ -70,19 +70,20 @@ export default {
 
     props: {
         errors: Object,
-        permissions: Array
+        permissions: Array,
+        role: Object
     },
 
-    setup() {
+    setup(props) {
         // define form with reactive
         const form = reactive({
-            name : '',
-            permissions : []
+            name : props.role.name,
+            permissions : props.role.permissions.map(obj => obj.name)
         });
 
         // method submit
         const submit = () => {
-            Inertia.post('/apps/roles', {
+            Inertia.put(`/apps/roles/${props.role.id}`, {
                 // data
                 name: form.name,
                 permissions: form.permissions,
@@ -90,7 +91,7 @@ export default {
                 onSuccess: () => {
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Role sukses terbuat.',
+                        text: 'Role sukses terupdate.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000
