@@ -11,7 +11,7 @@
             <div class="card boirder-0 rounded-2 shadow border-top-purple">
               <div class="card-header">
                 <span class="font-weight-bold"
-                  ><i class="fa fa-shield-alt"></i> Tambah User</span
+                  ><i class="fa fa-users"></i> Tambah User</span
                 >
               </div>
               <div class="card-body">

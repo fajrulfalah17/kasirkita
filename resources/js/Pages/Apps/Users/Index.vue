@@ -118,7 +118,7 @@ import Swal from 'sweetalert2';
 
                         Swal.fire({
                         title: 'Dihapus!',
-                        text: 'Role sukses dihapus.',
+                        text: 'User sukses dihapus.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000
