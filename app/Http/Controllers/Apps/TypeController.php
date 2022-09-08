@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TypeController extends Controller
 {
@@ -14,7 +16,13 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::when(request()->q, function($types) {
+            $types = $types->where('name', 'like', '%'. request()->q. '%');
+        })->latest()->paginate(5);
+
+        return Inertia::render('Apps/Types/Index', [
+            'types'     => $types
+        ]);
     }
 
     /**
@@ -24,7 +32,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Apps/Types/Create');
     }
 
     /**
@@ -35,7 +43,17 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required|uniques:types',
+            'description'   => 'required'
+        ]);
+
+        Type::create([
+            'name'          => $request->name,
+            'description'   => $request->description
+        ]);
+
+        return redirect()->route('apps.types.index');
     }
 
     /**
@@ -55,9 +73,11 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Type $type)
     {
-        //
+        return Inertia::render('Apps/Types/Edit', [
+            'type'      => $type
+        ]);
     }
 
     /**
@@ -67,9 +87,19 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Type $type)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required|uniques:types',
+            'description'   => 'required'
+        ]);
+
+        $type->update([
+            'name'          => $request->name,
+            'description'   => $request->description
+        ]);
+
+        return redirect()->route('apps.types.index');
     }
 
     /**
@@ -80,6 +110,10 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = Type::findOrFail($id);
+
+        $type->delete();
+
+        return redirect()->route('apps.types.index');
     }
 }
