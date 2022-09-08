@@ -17,12 +17,18 @@ class Product extends Model
         'buy_price',
         'sell_price',
         'category_id',
+        'types_id',
         'stock'
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Size::class);
     }
 
     protected function getImageAttribute($image)
