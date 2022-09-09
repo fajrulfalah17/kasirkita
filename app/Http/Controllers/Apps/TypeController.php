@@ -44,7 +44,7 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required|uniques:types',
+            'name'      => 'required|unique:types',
             'description'   => 'required'
         ]);
 
@@ -90,7 +90,7 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $this->validate($request, [
-            'name'      => 'required|uniques:types',
+            'name'      => 'required|unique:types',
             'description'   => 'required'
         ]);
 
