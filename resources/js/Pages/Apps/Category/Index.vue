@@ -35,7 +35,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(category, index) in categories.data" :key="index">
-                                        <td class="text-center">{{ category.name }}</td>
+                                        <td class="text-center" style="text-transform:uppercase;">{{ category.name }}</td>
                                         <td class="text-center">
                                             <Link :href="`/apps/categories/${category.id}/edit`" v-if="hasAnyPermission(['categories.edit'])" class="btn btn-success btn-sm me-2"><i class="fa fa-pencil-alt me-1"></i> Edit</Link>
                                             <button @click.prevent="destroy(category.id)" v-if="hasAnyPermission(['categories.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>

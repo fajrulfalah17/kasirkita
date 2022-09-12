@@ -36,7 +36,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(role, index) in roles.data" :key="index">
-                                        <td>{{ role.name }}</td>
+                                        <td style="text-transform:uppercase;">{{ role.name }}</td>
                                         <td>
                                             <span v-for="(permission, index) in role.permissions" :key="index" class="badge badge-primary shadow border-0 ms-2 mb-2 p-2">{{ permission.name }}
                                             </span>

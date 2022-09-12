@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::when(request()->q, function($products) {
-            $products = $products->where('name', 'like', '%' . request()->q .'%');
+            $products = $products->where('title', 'like', '%' . request()->q .'%');
         })->latest()->paginate(10);
 
         return Inertia::render('Apps/Product/Index', [
@@ -34,12 +34,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category = Category::all();
-        $type = Type::all();
+        $categories = Category::all();
+        $types = Type::all();
 
         return Inertia::render('Apps/Product/Create', [
-            'category'  => $category,
-            'type'  => $type
+            'categories'  => $categories,
+            'types'  => $types
         ]);
         
     }
@@ -59,20 +59,33 @@ class ProductController extends Controller
             'buy_price'=> 'required',
             'sell_price'=> 'required',
             'category_id'=> 'required',
+            'types_id'   => 'nullable',
             'stock' => 'required'
         ]);
 
-        Product::create([
-            'title' => $request->title,
-            'barcode' => $request->barcode,
-            'description' => $request->description,
-            'buy_price' => $request->buy_price,
-            'sell_price' => $request->sell_price,
-            'category_id' => $request->category_id,
-            'types_id' => $request->types_id,
-            'stock' => $request->stock
-        ]);
-
+        if($request->types_id == ''){
+            Product::create([
+                'title' => $request->title,
+                'barcode' => $request->barcode,
+                'description' => $request->description,
+                'buy_price' => $request->buy_price,
+                'sell_price' => $request->sell_price,
+                'category_id' => $request->category_id,
+                'stock' => $request->stock
+            ]);
+        } else {
+            Product::create([
+                'title' => $request->title,
+                'barcode' => $request->barcode,
+                'description' => $request->description,
+                'buy_price' => $request->buy_price,
+                'sell_price' => $request->sell_price,
+                'category_id' => $request->category_id,
+                'types_id' => $request->types_id,
+                'stock' => $request->stock
+            ]);
+        }
+        
         return redirect()->route('apps.products.index');
     }
 
@@ -95,12 +108,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $category = Category::all();
-        $type = Type::all();
+        $categories = Category::all();
+        $types = Type::all();
 
-        return Inertia::render('Apps/Product/Create', [
-            'category'  => $category,
-            'type'  => $type,
+        return Inertia::render('Apps/Product/Edit', [
+            'categories'  => $categories,
+            'types'  => $types,
             'product'   => $product
         ]);
     }
@@ -116,24 +129,37 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'title'     => 'required',
-            'barcode' => 'required|unique:products',
+            'barcode' => 'required',
             'description'=> 'required',
             'buy_price'=> 'required',
             'sell_price'=> 'required',
             'category_id'=> 'required',
+            'types_id'   => 'nullable',
             'stock' => 'required'
         ]);
 
-        $product->update([
-            'title' => $request->title,
-            'barcode' => $request->barcode,
-            'description' => $request->description,
-            'buy_price' => $request->buy_price,
-            'sell_price' => $request->sell_price,
-            'category_id' => $request->category_id,
-            'types_id' => $request->types_id,
-            'stock' => $request->stock
-        ]);
+        if($request->types_id == ''){
+            $product->update([
+                'title' => $request->title,
+                'barcode' => $request->barcode,
+                'description' => $request->description,
+                'buy_price' => $request->buy_price,
+                'sell_price' => $request->sell_price,
+                'category_id' => $request->category_id,
+                'stock' => $request->stock
+            ]);
+        } else {
+            $product->update([
+                'title' => $request->title,
+                'barcode' => $request->barcode,
+                'description' => $request->description,
+                'buy_price' => $request->buy_price,
+                'sell_price' => $request->sell_price,
+                'category_id' => $request->category_id,
+                'types_id' => $request->types_id,
+                'stock' => $request->stock
+            ]);
+        }
 
         return redirect()->route('apps.products.index');
     }
