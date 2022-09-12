@@ -39,7 +39,13 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(product, index) in products.data" :key="index">
-                                        <td class="text-center">{{ product.barcode }}</td>
+                                        <td class="text-center"><Barcode
+                                                    :value="product.barcode"
+                                                    :format="'CODE39'"
+                                                    :lineColor="'#000'"
+                                                    :width="1"
+                                                    :height="20"
+                                                /></td>
                                         <td style="text-transform:uppercase;">{{ product.title }}</td>
                                         <td>Rp. {{ formatPrice(product.buy_price) }}</td>
                                         <td>Rp. {{ formatPrice(product.sell_price) }}</td>
@@ -72,7 +78,8 @@
     import Pagination from '../../../Components/Pagination.vue';
     import { ref } from '@vue/reactivity';
     import { Inertia } from '@inertiajs/inertia';
-import Swal from 'sweetalert2';
+    import Swal from 'sweetalert2';
+    import Barcode from '../../../Components/Barcode.vue';
 
     export default {
 
@@ -83,7 +90,8 @@ import Swal from 'sweetalert2';
         components: {
             Head,
             Pagination,
-            Link
+            Link,
+            Barcode
         },
 
         props: {
