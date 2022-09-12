@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
@@ -14,7 +16,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::when(request()->q, function($customers) {
+            $customers = $customers->where('name', 'like', '%' .request()->q . '%');
+        })->latest()->paginate(5);
+
+        return Inertia::render('Apps/Customer/Index', [
+            'customers' => $customers
+        ]);
     }
 
     /**
@@ -24,7 +32,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('apps.customers.create');
     }
 
     /**
@@ -35,7 +43,19 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required',
+            'no_telp'   => 'required',
+            'address'   => 'required'
+        ]);
+
+        Customer::create([
+            'name'      => $request->name,
+            'no_telp'   => $request->no_telp,
+            'address'   => $request->address
+        ]);
+
+        return redirect()->route('apps.customers.index');
     }
 
     /**
@@ -55,9 +75,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Customer $customer)
     {
-        //
+        return Inertia::render('Apps/Customer/Edit',[
+            'customer'  => $customer
+        ]);
     }
 
     /**
@@ -67,9 +89,21 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Customer $customer)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required',
+            'no_telp'   => 'required',
+            'address'   => 'required'
+        ]);
+
+        $customer->update([
+            'name'      => $request->name,
+            'no_telp'   => $request->no_telp,
+            'address'   => $request->address
+        ]);
+
+        return redirect()->route('apps.customers.index');
     }
 
     /**
@@ -80,6 +114,10 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        $customer->delete();
+
+        return redirect()->route('apps.customers.index');
     }
 }
