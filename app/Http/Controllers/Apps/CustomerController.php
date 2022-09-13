@@ -32,7 +32,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return redirect()->route('apps.customers.create');
+        return Inertia::render('Apps/Customer/Create');
     }
 
     /**
@@ -45,7 +45,7 @@ class CustomerController extends Controller
     {
         $this->validate($request, [
             'name'      => 'required',
-            'no_telp'   => 'required',
+            'no_telp'   => 'required|unique:customers',
             'address'   => 'required'
         ]);
 
@@ -93,7 +93,7 @@ class CustomerController extends Controller
     {
         $this->validate($request, [
             'name'      => 'required',
-            'no_telp'   => 'required',
+            'no_telp'   => 'requiredunique:customers,no_telp,'.$customer->id,
             'address'   => 'required'
         ]);
 

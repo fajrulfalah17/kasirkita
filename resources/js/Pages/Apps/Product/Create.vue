@@ -98,7 +98,7 @@
                           class="form-control"
                           v-model="form.stock"
                           :class="{ 'is-invalid': errors.stock }"
-                          type="text"
+                          type="number"
                           placeholder="Stok Produk"
                         />
                       </div>
@@ -130,7 +130,7 @@
                           class="form-control"
                           v-model="form.buy_price"
                           :class="{ 'is-invalid': errors.buy_price }"
-                          type="text"
+                          type="number"
                           placeholder="Harga Beli"
                         />
                       </div>
@@ -145,7 +145,7 @@
                           class="form-control"
                           v-model="form.sell_price"
                           :class="{ 'is-invalid': errors.sell_price }"
-                          type="text"
+                          type="number"
                           placeholder="Harga Jual"
                         />
                       </div>
