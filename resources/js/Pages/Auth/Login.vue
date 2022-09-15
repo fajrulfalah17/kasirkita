@@ -7,7 +7,7 @@
       <div class="text-center mb-4">
         <a href="#" class="text-dark text-decoration-none">
           <img src="/images/icon_user.png" alt="" width="250" />
-          <h3 class="mt-2 font-weight-bold">KASIR</h3>
+          <h3 class="mt-2 font-weight-bold">KASIR KITA</h3>
         </a>
       </div>
       <div class="card-group">
