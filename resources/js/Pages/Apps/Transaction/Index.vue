@@ -33,6 +33,16 @@
                   />
                 </div>
                 <div class="mb-3">
+                  <label for="" class="form-label fw-bold">Nama Produk</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="formatPrice(product.sell_price)"
+                    placeholder="Harga Produk"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
                   <label class="form-label fw-bold">Qty</label>
                   <input
                     type="number"
@@ -42,6 +52,7 @@
                     min="1"
                   />
                 </div>
+                
                 <div class="text-end">
                   <button
                     @click.prevent="clearSearch"
@@ -396,7 +407,7 @@ export default {
               );
 
               location.reload();
-            }, 50);
+            }, 40);
           });
         });
     };
