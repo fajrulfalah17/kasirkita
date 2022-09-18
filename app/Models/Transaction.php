@@ -40,8 +40,11 @@ class Transaction extends Model
         return $this->hasMany(Profit::class);
     }
 
-    protected function getDateAttribute($date)
+    protected function getCreatedAtAttribute($date)
     {
-        return Carbon::parse($date)->format('d-M-Y H:i:s');
+        $date = Carbon::parse($date)->locale('id');
+
+        $date->settings(['formatFunction' => 'translatedFormat']);
+        return $date->format('d-M-Y H:i:s');
     }
 }

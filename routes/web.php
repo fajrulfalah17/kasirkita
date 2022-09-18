@@ -66,8 +66,12 @@ Route::prefix('apps')->group(function() {
 
         Route::get('/sales', [\App\Http\Controllers\Apps\SaleController::class, 'index'])->middleware('permission:sales.index')->name('apps.sales.index');
 
-        Route::get('/transactions/{transaction}', [\App\Http\Controllers\Apps\SaleController::class, 'destroy'])->name('apps.transaction.delete');
+        Route::delete('/transactions/{transaction}', [\App\Http\Controllers\Apps\SaleController::class, 'destroy'])->name('apps.transaction.delete');
 
         Route::get('/sales/filter', [\App\Http\Controllers\Apps\SaleController::class, 'filter'])->name('apps.sales.filter');
+    
+        Route::get('/sales/export', [\App\Http\Controllers\Apps\SaleController::class, 'export'])->name('apps.sales.export');
+
+        Route::get('/sales/pdf', [\App\Http\Controllers\Apps\SaleController::class, 'pdf'])->name('apps.sales.pdf');
     });
 });

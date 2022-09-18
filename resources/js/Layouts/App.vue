@@ -56,8 +56,8 @@ export default {
     Header,
     Sidebar,
   },
+
 };
-</script>
-  
+</script>  
   <style>
 </style>
